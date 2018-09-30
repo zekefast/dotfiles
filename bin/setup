@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+##
+# Setup script to symlink configuration and dot files from this repository
+# to proper places in the system.
+#
+# Script is idempotent. It is same to run it several times.
+#
+# TODO:
+
+# Stop immediately if any external program returns a non-zero exit status.
+# Short: set -e
+set -o errexit
+# Treat unset variables as an error when substituting. Short: set -u
+set -o nounset
+# If set, the return value of a pipeline is the value of the last (rightmost)
+# command to exit with a non-zero status, or zero if all commands in the
+# pipeline exit successfully. This option is disabled by default.
+set -o pipefail
+
+# Uncomment for debugging
+#
+# Disable file name generation using metacharacters (globbing).
+# Short: set -f
+#set -o noglob
+# Prints shell input lines as they are read.
+# Short: set -v
+#set -o verbose
+# Print command traces before executing command.
+# Short: set -x
+#set -o xtrace
+
+
+readonly __DIR__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+readonly __LIB__="${__DIR__}/../lib-bash"
+
+
+main() {
+  while getopts "h" _FLAG; do
+    case $_FLAG in
+      h)
+        usage
+        exit 0
+        ;;
+      *)
+        usage
+        exit 1
+    esac
+  done
+
+  exit 0
+}
+
+usage() {
+  cat <<-EOS
+
+  Setup script to symlink configuration and dot files from this repository
+  to proper places in the system.
+
+  Script is idempotent. It is same to run it several times.
+
+  Usage: $0 [OPTIONS...]
+
+    -h Displays this help.
+
+  Environment variables:
+
+  Examples:
+
+    # Output help information about command usage and available options
+    $0 -h
+EOS
+}
+
+
+main $@
