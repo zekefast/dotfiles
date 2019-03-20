@@ -39,24 +39,24 @@ readonly __CONFIG__="${__DIR__}/../CONFIG"
 
 readonly USER_HOME_DIR_PLACEHOLDER="USER_PLACEHOLDER"
 
-readonly DEFAULT_USER="$USER"
-declare  USER_NAME="${DEFAULT_USER}"
+readonly DEFAULT_USER=$USER
+declare  USER_NAME=$DEFAULT_USER
 
-readonly DEFAULT_HOME_DIR_PATH="$HOME"
-declare  HOME_DIR_PATH="${DEFAULT_HOME_DIR_PATH}"
+readonly DEFAULT_HOME_DIR_PATH=$HOME
+declare  HOME_DIR_PATH=$DEFAULT_HOME_DIR_PATH
 
 readonly DEFAULT_CONFIG_DIR_NAME=".config"
-declare  CONFIG_DIR_NAME="${DEFAULT_CONFIG_DIR_NAME}"
+declare  CONFIG_DIR_NAME=$DEFAULT_CONFIG_DIR_NAME
 
 
 main() {
   while getopts "H:U:h" _FLAG; do
     case $_FLAG in
       U)
-        USER_NAME="$OPTARG"
+        USER_NAME=$OPTARG
         ;;
       H)
-        HOME_DIR_PATH="$OPTARG"
+        HOME_DIR_PATH=$OPTARG
         ;;
       h)
         usage
@@ -105,8 +105,8 @@ do_symlinking() {
 }
 
 symlink_configuration() {
-  local APP_NAME="$1"
-  local APP_CONFIG_DIR_NAME="${2:-$APP_NAME}"
+  local APP_NAME=$1
+  local APP_CONFIG_DIR_NAME=${2:-$APP_NAME}
 
 
   local _SOURCE="${__CONFIG__}/home/${USER_HOME_DIR_PLACEHOLDER}/${DEFAULT_CONFIG_DIR_NAME}/${APP_CONFIG_DIR_NAME}"
