@@ -34,6 +34,10 @@ set -o pipefail
 readonly __DIR__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly __LIB__="${__DIR__}/../lib-bash"
 
+readonly __CONFIG__="${__DIR__}/../CONFIG"
+
+
+readonly USER_HOME_DIR_PLACEHOLDER="USER_PLACEHOLDER"
 
 readonly DEFAULT_USER="$USER"
 readonly DEFAULT_HOME_DIR="$HOME"
