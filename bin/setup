@@ -70,8 +70,6 @@ main() {
 
 
   do_symlinking
-
-  exit 0
 }
 
 usage() {
