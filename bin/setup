@@ -40,17 +40,23 @@ readonly __CONFIG__="${__DIR__}/../CONFIG"
 readonly USER_HOME_DIR_PLACEHOLDER="USER_PLACEHOLDER"
 
 readonly DEFAULT_USER="$USER"
-readonly DEFAULT_HOME_DIR="$HOME"
+declare  USER_NAME="${DEFAULT_USER}"
+
+readonly DEFAULT_HOME_DIR_PATH="$HOME"
+declare  HOME_DIR_PATH="${DEFAULT_HOME_DIR_PATH}"
+
+readonly DEFAULT_CONFIG_DIR_NAME=".config"
+declare  CONFIG_DIR_NAME="${DEFAULT_CONFIG_DIR_NAME}"
 
 
 main() {
   while getopts "H:U:h" _FLAG; do
     case $_FLAG in
       U)
-        _USER="$OPTARG"
+        USER_NAME="$OPTARG"
         ;;
       H)
-        _HOME_DIR="$OPTARG"
+        HOME_DIR_PATH="$OPTARG"
         ;;
       h)
         usage
@@ -62,13 +68,8 @@ main() {
     esac
   done
 
-  # Initialize parameters
-  _USER=${_USER:-$DEFAULT_USER}
-  _HOME_DIR=${_HOME_DIR:-$DEFAULT_HOME_DIR}
 
-  # Execute actions
-  echo Selected User: $_USER # TODO: this is just for testing purpose. Remove later.
-  echo Home dir: $_HOME_DIR  # TODO: this is just for testing purpose. Remove later.
+  do_symlinking
 
   exit 0
 }
@@ -84,7 +85,7 @@ usage() {
   Usage: $0 [OPTIONS...]
 
     -H Home directory to link configuration in.
-       Default is current user's home directory ($DEFAULT_HOME_DIR) from
+       Default is current user's home directory ($DEFAULT_HOME_DIR_PATH) from
        \$HOME environment variable.
     -U Owner of symlinked configuration files and directories.
        Default is current user ($DEFAULT_USER) from \$USER environment
@@ -100,5 +101,7 @@ usage() {
 EOS
 }
 
+do_symlinking() {
+}
 
 main $@
