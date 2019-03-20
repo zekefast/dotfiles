@@ -36,13 +36,17 @@ readonly __LIB__="${__DIR__}/../lib-bash"
 
 
 readonly DEFAULT_USER="$USER"
+readonly DEFAULT_HOME_DIR="$HOME"
 
 
 main() {
-  while getopts "U:h" _FLAG; do
+  while getopts "H:U:h" _FLAG; do
     case $_FLAG in
       U)
         _USER="$OPTARG"
+        ;;
+      H)
+        _HOME_DIR="$OPTARG"
         ;;
       h)
         usage
@@ -56,9 +60,11 @@ main() {
 
   # Initialize parameters
   _USER=${_USER:-$DEFAULT_USER}
+  _HOME_DIR=${_HOME_DIR:-$DEFAULT_HOME_DIR}
 
   # Execute actions
   echo Selected User: $_USER # TODO: this is just for testing purpose. Remove later.
+  echo Home dir: $_HOME_DIR  # TODO: this is just for testing purpose. Remove later.
 
   exit 0
 }
@@ -73,6 +79,9 @@ usage() {
 
   Usage: $0 [OPTIONS...]
 
+    -H Home directory to link configuration in.
+       Default is current user's home directory ($DEFAULT_HOME_DIR) from
+       \$HOME environment variable.
     -U Owner of symlinked configuration files and directories.
        Default is current user ($DEFAULT_USER) from \$USER environment
        variable.
