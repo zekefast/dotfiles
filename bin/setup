@@ -35,9 +35,15 @@ readonly __DIR__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly __LIB__="${__DIR__}/../lib-bash"
 
 
+readonly DEFAULT_USER="$USER"
+
+
 main() {
-  while getopts "h" _FLAG; do
+  while getopts "U:h" _FLAG; do
     case $_FLAG in
+      U)
+        _USER="$OPTARG"
+        ;;
       h)
         usage
         exit 0
@@ -47,6 +53,12 @@ main() {
         exit 1
     esac
   done
+
+  # Initialize parameters
+  _USER=${_USER:-$DEFAULT_USER}
+
+  # Execute actions
+  echo Selected User: $_USER # TODO: this is just for testing purpose. Remove later.
 
   exit 0
 }
@@ -61,6 +73,9 @@ usage() {
 
   Usage: $0 [OPTIONS...]
 
+    -U Owner of symlinked configuration files and directories.
+       Default is current user ($DEFAULT_USER) from \$USER environment
+       variable.
     -h Displays this help.
 
   Environment variables:
