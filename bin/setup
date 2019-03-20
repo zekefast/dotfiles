@@ -104,4 +104,24 @@ EOS
 do_symlinking() {
 }
 
+symlink_configuration() {
+  local APP_NAME="$1"
+  local APP_CONFIG_DIR_NAME="${2:-$APP_NAME}"
+
+
+  local _SOURCE="${__CONFIG__}/home/${USER_HOME_DIR_PLACEHOLDER}/${DEFAULT_CONFIG_DIR_NAME}/${APP_CONFIG_DIR_NAME}"
+  local _DESTINATION_DIR_PATH="${HOME_DIR_PATH}/${CONFIG_DIR_NAME}"
+  local _DESTINATION="${_DESTINATION_DIR_PATH}/${APP_CONFIG_DIR_NAME}"
+
+  echo "Symlinking $APP_NAME configuration ..."
+
+  if [ ! -e "${_DESTINATION}" ]; then
+    mkdir --verbose --parents "${_DESTINATION_DIR_PATH}"
+    ln --verbose --symbolic --target-directory="${_DESTINATION_DIR_PATH}" "${_SOURCE}"
+  else
+    echo -e "No symlinking occured! Target ${_DESTINATION} exists!"
+  fi
+}
+
+
 main $@
