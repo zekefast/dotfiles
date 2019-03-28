@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+##
+# Setup script to symlink configuration and dot files from this repository
+# to proper places in the system.
+#
+# Script is idempotent. It is same to run it several times.
+#
+# TODO:
+
+# Stop immediately if any external program returns a non-zero exit status.
+# Short: set -e
+set -o errexit
+# Treat unset variables as an error when substituting. Short: set -u
+set -o nounset
+# If set, the return value of a pipeline is the value of the last (rightmost)
+# command to exit with a non-zero status, or zero if all commands in the
+# pipeline exit successfully. This option is disabled by default.
+set -o pipefail
+
+# Uncomment for debugging
+#
+# Disable file name generation using metacharacters (globbing).
+# Short: set -f
+#set -o noglob
+# Prints shell input lines as they are read.
+# Short: set -v
+#set -o verbose
+# Print command traces before executing command.
+# Short: set -x
+#set -o xtrace
+
+
+readonly __DIR__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+readonly __LIB__="${__DIR__}/../lib-bash"
+
+readonly __CONFIG__="${__DIR__}/../CONFIG"
+
+
+readonly USER_HOME_DIR_PLACEHOLDER="USER_PLACEHOLDER"
+
+readonly DEFAULT_USER=$USER
+declare  USER_NAME=$DEFAULT_USER
+
+readonly DEFAULT_HOME_DIR_PATH=$HOME
+declare  HOME_DIR_PATH=$DEFAULT_HOME_DIR_PATH
+
+readonly DEFAULT_CONFIG_DIR_NAME=".config"
+declare  CONFIG_DIR_NAME=$DEFAULT_CONFIG_DIR_NAME
+
+
+main() {
+  while getopts "H:U:h" _FLAG; do
+    case $_FLAG in
+      U)
+        USER_NAME=$OPTARG
+        ;;
+      H)
+        HOME_DIR_PATH=$OPTARG
+        ;;
+      h)
+        usage
+        exit 0
+        ;;
+      *)
+        usage
+        exit 1
+    esac
+  done
+
+
+  do_symlinking
+}
+
+usage() {
+  cat <<-EOS
+
+  Setup script to symlink configuration and dot files from this repository
+  to proper places in the system.
+
+  Script is idempotent. It is same to run it several times.
+
+  Usage: $0 [OPTIONS...]
+
+    -H Home directory to link configuration in.
+       Default is current user's home directory ($DEFAULT_HOME_DIR_PATH) from
+       \$HOME environment variable.
+    -U Owner of symlinked configuration files and directories.
+       Default is current user ($DEFAULT_USER) from \$USER environment
+       variable.
+    -h Displays this help.
+
+  Environment variables:
+
+  Examples:
+
+    # Output help information about command usage and available options
+    $0 -h
+EOS
+}
+
+do_symlinking() {
+}
+
+symlink_configuration() {
+  local APP_NAME=$1
+  local APP_CONFIG_DIR_NAME=${2:-$APP_NAME}
+
+
+  local _SOURCE="${__CONFIG__}/home/${USER_HOME_DIR_PLACEHOLDER}/${DEFAULT_CONFIG_DIR_NAME}/${APP_CONFIG_DIR_NAME}"
+  local _DESTINATION_DIR_PATH="${HOME_DIR_PATH}/${CONFIG_DIR_NAME}"
+  local _DESTINATION="${_DESTINATION_DIR_PATH}/${APP_CONFIG_DIR_NAME}"
+
+  echo "Symlinking $APP_NAME configuration ..."
+
+  if [ ! -e "${_DESTINATION}" ]; then
+    mkdir --verbose --parents "${_DESTINATION_DIR_PATH}"
+    ln --verbose --symbolic --target-directory="${_DESTINATION_DIR_PATH}" "${_SOURCE}"
+  else
+    echo -e "No symlinking occured! Target ${_DESTINATION} exists!"
+  fi
+}
+
+
+main $@
