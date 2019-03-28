@@ -21,3 +21,5 @@ More detailed help is available by `bin/setup -h`.
 ## Installaled
 
 ## Configured
+
+- [NeoVim-GTK](https://github.com/daa84/neovim-gtk)
