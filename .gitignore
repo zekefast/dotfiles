@@ -1,0 +1,11 @@
+.git
+CONFIG/home/USER_PLACEHOLDER/.config/nvim/plugged/
+CONFIG/home/USER_PLACEHOLDER/.config/nvim/tmp/
+CONFIG/home/USER_PLACEHOLDER/.config/nvim/backups/
+CONFIG/home/USER_PLACEHOLDER/.config/nvim/session/
+
+*.swp
+*.swo
+*.swn
+*~
+.netrwhist
