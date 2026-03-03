@@ -1,0 +1,143 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """
+$username[@](bold bright-green)$hostname:$directory(\
+\\( \
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$vcsh\
+$fossil_branch\
+$fossil_metrics\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$gleam\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$quarto\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$typst\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$mise\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$nats\
+$direnv\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$os\
+$container\
+$shell\
+\\)\
+)\
+$character\
+"""
+
+[character]
+success_symbol = '[\$]()'
+
+[package]
+format = '[$symbol$version]($style)'
+
+[line_break]
+disabled = true
+
+[username]
+show_always = true
+format = '[$user](bold bright-green)'
+
+[hostname]
+format = '[$ssh_symbol$hostname](bold bright-green)'
+ssh_only = false
+
+[directory]
+disabled = false
+style = 'bold blue'
+truncate_to_repo = false
+truncation_length = -1
+format = '[$path]($style)[$read_only]($read_only_style)'
+
+[time]
+disabled = true
+
+[battery]
+disabled = true
+
+[ruby]
+symbol = '󰴭 '
+detect_variables = []
+
+[rust]
+format = ' [$symbol($version )]($style)'
+
+[gcloud]
+disabled = true
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
