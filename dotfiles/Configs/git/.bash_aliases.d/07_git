@@ -1,0 +1,36 @@
+alias gst='git status '
+
+alias gc='git commit '
+alias gca='git commit --all '
+
+alias ga='git add '
+alias gap='git add --patch '
+
+alias gco='git checkout '
+
+alias gb='git branch '
+alias gba='git branch --all'
+alias gbl='PAGER=cat git branch'
+
+alias gm='git merge '
+
+alias gd='git diff '
+alias gdc='git diff --cached '
+
+alias gfp='git fetch --prune '
+
+alias gs='git stash'
+alias gsl='git stash list'
+alias gss='git stash show -u'
+alias gds='sh -c '\''git diff stash@{$1}~1..stash@{$1}'\'' _'
+alias gsp='git stash pop'
+
+alias gwc='git whatchanged HEAD..origin/`git branch --show-current`'
+
+alias gpo='git pull origin'
+alias gpom='git pull origin master'
+
+alias grvs='git remote -v show'
+
+alias git-restore-all-staged='git restore --staged $(git diff --cached --name-only)'
+alias gdnew="for next in \$( git ls-files --others --exclude-standard ) ; do git --no-pager diff --no-index /dev/null \$next; done;"

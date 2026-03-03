@@ -1,0 +1,14 @@
+# RSpec
+spec/examples.txt
+
+# byebug
+.byebug_history
+
+# Ctags
+tags
+
+# Idea
+.idea/
+
+# Local mise config https://mise.jdx.dev/configuration/environments.html
+mise.local.toml
