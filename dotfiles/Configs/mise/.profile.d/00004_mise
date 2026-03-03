@@ -1,0 +1,2 @@
+. <(mise activate bash)
+. <(mise completion bash --include-bash-completion-lib)
